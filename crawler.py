@@ -76,7 +76,7 @@ class Crawler:
        return  ' '.join(list(map(lambda element: self.get_value(element), elements)))
 
     def get_value(self, element):
-        return element.get_text(strip=True) if element else ''
+        return element.get_text() if element else ''
     
     def start(self):
         robots = self.get_robots_txt()
