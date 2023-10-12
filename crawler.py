@@ -56,32 +56,34 @@ class Crawler:
         req = Request(link, headers = {'User-Agent': 'Mozilla/5.0'})
         res = urlopen(req)
         soup = bs.BeautifulSoup(res, 'html.parser')
-        entries = soup.find_all(class_='h-entry')
 
-        for entry in entries:
-            print("Link: {0}\n".format(link))
-
+        entry = soup.find(class_='h-entry')
+        if entry is not None:
             title = entry.find(class_='p-name')
-            if title is not None:
-                print(title.get_text(strip=True))
-
             tags = entry.find_all(class_='p-category')
-            if tags is not None:
-                print(list(map(lambda tag: tag.get_text(strip=True), tags)))
             summary = entry.find(class_='p-summary')
-            if summary is not None:
-                print(summary.get_text(strip=True))
-
             content = entry.find(class_='e-content')
-            if content is not None:
-                print(content.get_text(strip=True))
-            
-            print("\n\n")
         
-    def start(self):
-        robots = self.get_robots_txt();
-        sitemaps=self.get_sitemaps(robots)
-        for link in self.get_uniq_links_from_sitemaps(sitemaps):
-            self.crawl_page(link)
+        return {
+            "url": link,
+            "title" : self.get_value(title),
+            "summary": self.get_value(summary),
+            "content": self.get_value(content),
+            "tags": self.get_vales_as_str(tags)
+        }
 
+    def get_vales_as_str(self, elements):
+        ' '.join(list(map(lambda element: self.get_value(element), elements)))
+
+    def get_value(self, element):
+        return element.get_text(strip=True) if element else ''
+    
+    def start(self):
+        robots = self.get_robots_txt()
+        sitemaps=self.get_sitemaps(robots)
+
+        data = []
+        for link in self.get_uniq_links_from_sitemaps(sitemaps):
+            data.append(self.crawl_page(link))
+        return data
         
