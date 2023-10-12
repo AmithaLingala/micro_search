@@ -56,9 +56,9 @@ class Crawler:
         req = Request(link, headers = {'User-Agent': 'Mozilla/5.0'})
         res = urlopen(req)
         soup = bs.BeautifulSoup(res, 'html.parser')
-        entry = soup.find(class_='h-entry')
+        entries = soup.find_all(class_='h-entry')
 
-        if entry is not None:
+        for entry in entries:
             print("Link: {0}\n".format(link))
 
             title = entry.find(class_='p-name')
@@ -68,12 +68,13 @@ class Crawler:
             tags = entry.find_all(class_='p-category')
             if tags is not None:
                 print(list(map(lambda tag: tag.get_text(strip=True), tags)))
+            summary = entry.find(class_='p-summary')
+            if summary is not None:
+                print(summary.get_text(strip=True))
 
             content = entry.find(class_='e-content')
             if content is not None:
                 print(content.get_text(strip=True))
-            
-            
             
             print("\n\n")
         
