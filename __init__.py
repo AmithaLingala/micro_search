@@ -1,9 +1,9 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource
-from models.site_data import db
-from api.search import Search
-from api.crawl import Crawl
+from micro_search.models.site_data import db
+from micro_search.api.search import Search
+from micro_search.api.crawl import Crawl
 
 app = Flask(__name__)
 CORS(app)
