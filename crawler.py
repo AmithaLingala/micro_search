@@ -69,11 +69,11 @@ class Crawler:
             "title" : self.get_value(title),
             "summary": self.get_value(summary),
             "content": self.get_value(content),
-            "tags": self.get_vales_as_str(tags)
+            "tags": self.get_values_as_str(tags)
         }
 
-    def get_vales_as_str(self, elements):
-        ' '.join(list(map(lambda element: self.get_value(element), elements)))
+    def get_values_as_str(self, elements):
+       return  ' '.join(list(map(lambda element: self.get_value(element), elements)))
 
     def get_value(self, element):
         return element.get_text(strip=True) if element else ''

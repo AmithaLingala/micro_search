@@ -8,6 +8,10 @@ class Search(Resource):
   def get(self):
     content = request.args.get('query')
     site= request.args.get('site')
+
+    if content is None:
+      return jsonify([])
+
     site = site if site else ''
     site = "%{0}%".format(site)
     rows = db.session.execute(text("SELECT * FROM site_data_idx WHERE (site_data_idx MATCH :text) AND (url like :site)").params(text=content, site=site)).all()

@@ -2,10 +2,13 @@ from flask import request
 from flask_restful import Resource, reqparse
 from micro_search.models.site_data import SiteData,db
 from micro_search.crawler import Crawler
-
+import os
 import json
+from dotenv import load_dotenv, dotenv_values
 
-SITES=["https://exeami.com", "https://codingotaku.com"]
+load_dotenv()
+
+SITES=os.getenv('SITES').split(',')
 
 
 class Crawl(Resource):
@@ -22,7 +25,7 @@ class Crawl(Resource):
         row = SiteData.query.filter_by(url=page_data["url"]).first()
         if row:
             row.title = page_data["title"]
-            row.summary = page_data["summary"] 
+            row.summary = page_data["summary"]
             row.tags = page_data["tags"]
             row.content = page_data["content"]
         else:
