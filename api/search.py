@@ -14,8 +14,9 @@ class Search(Resource):
             return jsonify([])
 
         content = content.replace('"', '""')
-
-        query = SearchSiteData.search_bm25('"{}"'.format(content)).limit(10).dicts()
+        if site is None:
+          site='.'
+        query = SearchSiteData.search_bm25('"{}"'.format(content)).where(SearchSiteData.url.contains(site)).limit(10).dicts()
 
         rows=[]
         for row in query:
