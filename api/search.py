@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource, reqparse
-from micro_search.models.site_data import SiteData,db
+from models.site_data import SiteData,db
 from sqlalchemy.sql import text
 import json
 

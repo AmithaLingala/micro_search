@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource, reqparse
-from micro_search.models.site_data import SiteData,db
-from micro_search.crawler import Crawler
+from models.site_data import SiteData,db
+from crawler import Crawler
 import os
 import json
 from dotenv import load_dotenv, dotenv_values
