@@ -28,5 +28,5 @@ curl http://localhost:8000/?query=example&site=example.com # Search for a text i
 4. If you want to crawl multiple sites, seperate them with commas (`SITES=https://example.com,https://anotherexample.com`)
 5. Create a new python virtual environment and activate it (`python3 -m venv .venv && source .venv/bin/activate`)
 6. Install all requirements (`pip install -r Requirements.txt`)
-7. Run the program `flask --app micro_search run`
+7. Run the program `flask run`
 8. profit!
