@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource
-from models.site_data import db
+from models.site_data import db, SearchSiteData
 from api.search import Search
 from api.index import Index
 from dotenv import load_dotenv, dotenv_values
@@ -15,14 +15,12 @@ api = Api(app)
 
 HOST = os.getenv("HOST")
 PORT = os.getenv("PORT")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB")
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)
-
-with app.app_context():
-    db.create_all()
+db.connect()
+db.create_tables([SearchSiteData])
+SearchSiteData.rebuild()
+SearchSiteData.optimize()
 
 api.add_resource(Search, '/')
 api.add_resource(Index, '/index')

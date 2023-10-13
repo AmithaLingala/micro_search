@@ -58,6 +58,11 @@ class Crawler:
         soup = bs.BeautifulSoup(res, 'html.parser')
 
         entry = soup.find(class_='h-entry')
+        title=''
+        tags=[]
+        summary=''
+        content=''
+
         if entry is not None:
             title = entry.find(class_='p-name')
             tags = entry.find_all(class_='p-category')
