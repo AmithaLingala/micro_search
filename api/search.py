@@ -16,7 +16,7 @@ class Search(Resource):
         content = content.replace('"', '""')
         if site is None:
           site='.'
-        query = SearchSiteData.search_bm25('"{}"'.format(content)).where(SearchSiteData.url.contains(site)).limit(10).dicts()
+        query = SearchSiteData.search_bm25('{}'.format(content)).where(SearchSiteData.url.contains(site)).limit(10).dicts()
 
         rows=[]
         for row in query:
