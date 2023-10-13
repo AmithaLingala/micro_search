@@ -1,7 +1,7 @@
 from flask import request
 from flask_restful import Resource, reqparse
 from models.site_data import SiteData,db
-from crawler import Crawler
+from controller.crawler import Crawler
 import os
 import json
 from dotenv import load_dotenv, dotenv_values
@@ -11,7 +11,7 @@ load_dotenv()
 SITES=os.getenv('SITES').split(',')
 
 
-class Crawl(Resource):
+class Index(Resource):
   def put(self):
     rows = []
     for site in SITES:

@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from flask_restful import Api, Resource
 from models.site_data import db
 from api.search import Search
-from api.crawl import Crawl
+from api.index import Index
 from dotenv import load_dotenv, dotenv_values
 import os
 
@@ -24,8 +24,8 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-api.add_resource(Search, '/search')
-api.add_resource(Crawl, '/crawl')
+api.add_resource(Search, '/')
+api.add_resource(Index, '/index')
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT)

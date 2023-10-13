@@ -5,18 +5,18 @@ A self-hostable search engine for sites supporting microformats2
 ## How to use?
 
 This service exposes two api endpoints
-1. `/crawl` -> This is a `PUT` request that indexes all sites defined in the environment file.
-2. `/search` -> This is a `GET` request that takes two parameters `query` and `site`.
+1. `/index` -> This is a `PUT` request that indexes all sites defined in the environment file.
+2. `/` -> This is a `GET` request that takes two parameters `query` and `site`.
     1. The parameter `query` is mandatory, not providing a query will return an empty result.
     2. `site` the site url, you could also provide some arbitary text here, this will match all urls containing the provided the text.
 
 ### Example
 
 ```sh
-curl -X PUT http://localhost:8000/crawl # crawls all sites defined in the .env file
-curl http://localhost:8000/search?query=example # Search for a text
+curl -X PUT http://localhost:8000/index # crawls all sites defined in the .env file
+curl http://localhost:8000/?query=example # Search for a text
 
-curl http://localhost:8000/search?query=example&site=example.com # Search for a text in example.com
+curl http://localhost:8000/?query=example&site=example.com # Search for a text in example.com
 
 ```
 
